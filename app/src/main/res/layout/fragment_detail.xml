@@ -12,7 +12,7 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Captain America"
+        android:text="@string/nama"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         />
 
@@ -20,7 +20,7 @@
         android:id="@+id/telephoneTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="8.8"
+        android:text="110"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         />
 
