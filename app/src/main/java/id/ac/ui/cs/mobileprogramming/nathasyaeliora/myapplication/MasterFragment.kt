@@ -35,10 +35,10 @@ class MasterFragment : Fragment(), ContactAdapter.OnItemCLickListener {
         navController = Navigation.findNavController(view)
         recyclerView = view.findViewById(R.id.recyclerView)
         contactAdapter = ContactAdapter(contactList, this)
-        recyclerView.setAdapter(contactAdapter)
-        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        recyclerView?.setAdapter(contactAdapter)
+        recyclerView?.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         sharedViewModel = ViewModelProvider(requireActivity()).get<SharedViewModel>(SharedViewModel::class.java)
-        sharedViewModel.contactList.observe(viewLifecycleOwner, Observer<List<Contact>?> { contacts ->
+        sharedViewModel!!.contactList.observe(viewLifecycleOwner, Observer<List<Contact>?> { contacts ->
             contactList.clear()
             contactList.addAll(contacts!!)
             contactAdapter!!.notifyDataSetChanged()
@@ -50,5 +50,4 @@ class MasterFragment : Fragment(), ContactAdapter.OnItemCLickListener {
         sharedViewModel?.setContact(position)
         navController?.navigate(R.id.action_masterFragment_to_detailFragment)
     }
-}
 }

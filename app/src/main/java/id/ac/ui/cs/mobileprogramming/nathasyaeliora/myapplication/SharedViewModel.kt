@@ -9,7 +9,7 @@ import java.util.*
 
 
 class SharedViewModel : ViewModel() {
-    private val mutableContactList = MutableLiveData<MutableList<Contact>?>()
+    private var mutableContactList = MutableLiveData<MutableList<Contact>?>()
     private val mutableContact = MutableLiveData<Contact>()
     val contactList: LiveData<MutableList<Contact>?>
         get() {
@@ -51,9 +51,10 @@ class SharedViewModel : ViewModel() {
         override fun onPostExecute(aVoid: Void?) {
             super.onPostExecute(aVoid)
             val contactList: MutableList<Contact> = ArrayList()
-            contactList.add(Contact("Kapolsek", "3423488"))
-            contactList.add(Contact("Ambulans", "32378"))
-            contactList.add(Contact("Suicide Prevention Line", "2893183"))
+            contactList.add(Contact("Polisi", "110"))
+            contactList.add(Contact("Ambulans", "118"))
+            contactList.add(Contact("Pemadam Kebakaran", "113"))
+            contactList.add(Contact("Pencegahan Bunuh Diri", "500454"))
             mutableContactList.postValue(contactList)
         }
     }

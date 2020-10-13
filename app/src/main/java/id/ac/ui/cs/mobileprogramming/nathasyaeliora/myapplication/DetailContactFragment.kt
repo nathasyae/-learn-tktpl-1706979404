@@ -34,7 +34,7 @@ class DetailFragment : Fragment() {
         telephoneTextView = view.findViewById(R.id.telephoneTextView)
         navController = Navigation.findNavController(view)
         sharedViewModel = ViewModelProvider(requireActivity()).get<SharedViewModel>(SharedViewModel::class.java)
-        sharedViewModel.contact.observe(getViewLifecycleOwner(), object : Observer<Contact?> {
+        sharedViewModel!!.contact.observe(getViewLifecycleOwner(), object : Observer<Contact?> {
             override fun onChanged(contact: Contact?) {
                 if (contact != null) {
                     updateUI(contact)

@@ -1,14 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication
 
-import android.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.model.Contact
-//import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.res
-import java.lang.String
 
 
 class ContactAdapter(var contactList: List<Contact>, var onItemCLickListener: OnItemCLickListener) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder?>() {
@@ -29,7 +26,7 @@ class ContactAdapter(var contactList: List<Contact>, var onItemCLickListener: On
         private val telephoneTextView: TextView
         fun bind(contact: Contact) {
             nameTextView.setText(contact.name)
-            telephoneTextView.setText(String.valueOf(contact.telephone))
+            telephoneTextView.setText(contact.telephone)
         }
 
         init {
