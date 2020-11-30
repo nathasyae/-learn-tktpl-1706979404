@@ -10,8 +10,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.API.APIService
+import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.API.ApiUtils.aPIService
+import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.API.Post
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.row.*
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter: ArrayAdapter<String>
     lateinit var wifiManager: WifiManager
     lateinit var results: List<ScanResult>
+    lateinit var mAPIService: APIService
     var arrayStringResult:ArrayList<String> = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +47,11 @@ class MainActivity : AppCompatActivity() {
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayStringResult)
         list_view.adapter = adapter
 
+        mAPIService = aPIService
+
+        send_button.setOnClickListener {
+            sendPost(arrayStringResult)
+        }
 
     }
 
@@ -82,5 +94,25 @@ class MainActivity : AppCompatActivity() {
         // handle failure: new scan did NOT succeed
         // consider using old scan results: these are the OLD results!
         val results = wifiManager.scanResults
+    }
+
+    // API
+    fun sendPost(wifi_list: ArrayList<String>?) {
+        mAPIService.savePost(wifi_list)!!.enqueue(object : retrofit2.Callback<Post?> {
+            override fun onResponse(call: Call<Post?>?, response: Response<Post?>) {
+                if (response.isSuccessful()) {
+                    showSuccessToast()
+                    Log.i("POST", "post submitted to API.")
+                }
+            }
+
+            override fun onFailure(call: Call<Post?>?, t: Throwable?) {
+                Log.e("POST", "Unable to submit post to API.")
+            }
+        })
+    }
+
+    fun showSuccessToast() {
+        Toast.makeText(this, "sent to requestbin", Toast.LENGTH_LONG).show()
     }
 }
