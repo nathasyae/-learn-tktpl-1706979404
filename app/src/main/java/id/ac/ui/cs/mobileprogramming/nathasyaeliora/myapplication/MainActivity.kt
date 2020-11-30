@@ -1,15 +1,19 @@
 package id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.API.APIService
 import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.API.ApiUtils.aPIService
 import id.ac.ui.cs.mobileprogramming.nathasyaeliora.myapplication.API.Post
@@ -22,6 +26,7 @@ import javax.security.auth.callback.Callback
 
 class MainActivity : AppCompatActivity() {
 
+    val callbackId = 37
     lateinit var adapter: ArrayAdapter<String>
     lateinit var wifiManager: WifiManager
     lateinit var results: List<ScanResult>
@@ -32,6 +37,13 @@ class MainActivity : AppCompatActivity() {
         Log.i("ngetest", "oncreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        checkPermission(
+            callbackId,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.INTERNET
+        )
 
         scan_button.setOnClickListener{
             startScanning()
@@ -115,4 +127,14 @@ class MainActivity : AppCompatActivity() {
     fun showSuccessToast() {
         Toast.makeText(this, "sent to requestbin", Toast.LENGTH_LONG).show()
     }
+
+    private fun checkPermission(callbackId: Int, vararg permissionsId: String) {
+        var permissions = true
+        for (p in permissionsId) {
+            permissions =
+                permissions && ContextCompat.checkSelfPermission(this, p) == PERMISSION_GRANTED
+        }
+        if (!permissions) ActivityCompat.requestPermissions(this, permissionsId, callbackId)
+    }
+
 }
