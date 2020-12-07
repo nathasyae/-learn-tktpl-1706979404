@@ -6,10 +6,8 @@
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_id_ac_ui_cs_mobileprogramming_nathasyaeliora_myapplication_calculateTotalPrice(
-        JNIEnv* pEnv,
-        jobject pThis,
-        jint qt) {
-    jlong b = 55000;
+Java_id_ac_ui_cs_mobileprogramming_nathasyaeliora_myapplication_MainActivity_calculteTotalPrice(
+        JNIEnv *env, jobject thiz, jint qt) {
+    jlong b = 55;
     return qt * b;
 }
